@@ -1,0 +1,185 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ================= THEME TOKENS ================= */
+:root {
+  --bg: #0E2F28;
+  --bg-soft: #123E34;
+  --bg-wash: #0A1F1B;
+
+  --ink-1: #F6F4EE;
+  --ink-2: #EAE7DF;
+  --ink-6: #9FB4AD;
+
+  --line: rgba(200,162,77,0.25);
+
+  --btn: #C8A24D;
+  --btn-hover: #9F8742;
+
+  --shadow-card: 0 20px 40px rgba(0,0,0,0.35);
+  --shadow-card-hover: 0 30px 60px rgba(0,0,0,0.45);
+
+  --radius: 14px;
+}
+
+/* ================= BASE ================= */
+@layer base {
+  html, body {
+    @apply bg-paper text-ink-2 font-sans;
+    background-color: var(--bg);
+    color: var(--ink-2);
+  }
+
+  h1, .h1 {
+    @apply font-display text-display-1;
+  }
+
+  h2, .h2 {
+    @apply font-display text-display-2;
+  }
+
+  .eyebrow {
+    @apply uppercase text-ink-6 inline-flex items-center gap-3;
+    letter-spacing: 0.08em;
+  }
+
+  .eyebrow .rule {
+    width: 64px;
+    height: 1px;
+    background: var(--line);
+  }
+
+  .meta {
+    @apply uppercase text-ink-6;
+    letter-spacing: 0.16em;
+  }
+}
+
+/* ================= COMPONENTS ================= */
+@layer components {
+  .btn-primary {
+    @apply btn;
+    background-color: var(--btn);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--btn-hover);
+  }
+
+  .tile {
+    @apply card;
+    border-radius: var(--radius);
+  }
+
+  .tile::after {
+    content: attr(data-label);
+    @apply absolute left-3 bottom-3 text-white font-semibold;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.45);
+  }
+
+  .badge {
+    @apply relative grid place-items-center;
+    width: 120px;
+    height: 120px;
+  }
+
+  .badge-dot {
+    @apply absolute rounded-full;
+    width: 8px;
+    height: 8px;
+    background: var(--btn);
+  }
+
+  .hero {
+    @apply container py-18;
+  }
+
+  .hero-grid {
+    @apply grid gap-10 md:grid-cols-2 items-center;
+  }
+
+  .hero-cta {
+    @apply mt-6 flex gap-3;
+  }
+
+  .arrow {
+    @apply grid place-items-center w-9 h-9 rounded-full;
+    border: 1px solid var(--line);
+  }
+}
+
+/* ================= UTILITIES ================= */
+@layer utilities {
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+
+  .shadow-card-hover {
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .text-shadow {
+    text-shadow: 0 1px 6px rgba(0,0,0,0.45);
+  }
+
+  /* Toast Notifications */
+  .toast-container {
+    @apply fixed top-5 right-5 flex flex-col gap-3 z-[9999];
+  }
+
+  .toast {
+    @apply px-6 py-3 rounded-lg shadow-lg text-black bg-accent font-semibold;
+    animation: toast-slide 3s ease-in-out forwards;
+  }
+}
+
+/* ====================== */
+/* CUSTOM UTILITIES FIXES */
+/* ====================== */
+@layer utilities {
+  .py-18 {
+    padding-top: 4.5rem;
+    padding-bottom: 4.5rem;
+  }
+
+  .py-22 {
+    padding-top: 5.5rem;
+    padding-bottom: 5.5rem;
+  }
+
+  .hero-tile-hover {
+    @apply transform transition hover:scale-105 hover:-translate-y-1 hover:shadow-2xl;
+  }
+
+  .social-icon:hover {
+    @apply text-accent-300 transition-transform scale-110;
+  }
+
+  .hero-visual {
+    @apply relative min-h-[520px] rounded-lgx overflow-hidden shadow-card;
+    background-position: center;
+    background-size: cover;
+  }
+}
+
+/* ================= KEYFRAMES ================= */
+@keyframes slide-in {
+  0% { transform: translateY(-20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes toast-slide {
+  0% { transform: translateY(-20px); opacity: 0; }
+  10% { transform: translateY(0); opacity: 1; }
+  90% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-20px); opacity: 0; }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.3s ease-out forwards;
+}
+
+.animate-toast {
+  animation: toast-slide 3s ease-in-out forwards;
+}
